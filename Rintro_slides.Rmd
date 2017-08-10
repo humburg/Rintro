@@ -1,0 +1,32 @@
+---
+title: "An Introduction to R"
+author: "Peter Humburg"
+date: "2 August 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Getting started
+## RStudio
+```{r, out.width = "800px"}
+knitr::include_graphics("figures/RStudio_startup.png")
+```
+
+## RStudio
+```{r, out.width="800px"}
+knitr::include_graphics("figures/RStudio_startup_labelled.png")
+```
+
+<div class="notes">
+* Could start working now by typing R commands, but better to keep a record of
+  what we are doing.
+* Notebooks integrate R code with comments and and output.
+</div>
+
+## Notebooks
+```{r, out.width="800px"}
+knitr::include_graphics("figures/create_notebook.png")
+```
