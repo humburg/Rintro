@@ -6,8 +6,8 @@ output:
     ioslides_presentation:
         template: template/mq_workshop.html
         widescreen: true
-        fig_height: 8
-        fig_width: 8
+        fig_height: 7
+        fig_width: 7
         logo: icons\\mq_logo_wide.png
         includes:
             in_header: 
@@ -21,7 +21,6 @@ logo_small: icons/mq_logo.png
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(readr)
-library(DT)
 
 title <- rmarkdown::metadata$title
 author <- rmarkdown::metadata$author
@@ -195,76 +194,6 @@ df[3, 2]
 knitr::include_graphics("figures/functions.png")
 ```
 
-## Basic building blocks -- Functions
-
-* Each function consists of three parts.
-    * A *name*
-    * A list of *arguments*
-    * A *body* of R code that processes the arguments 
-
-```{r, out.width="500px"}
-knitr::include_graphics("figures/function_def.png")
-```
-
-
-## Getting help {.columns-2}
-```{r, out.height="265px"}
-knitr::include_graphics("figures/help_browser.png")
-```
-
-* <span class='red'>Use RStudio's help browser.</span>
-* Use the `?` command.
-* Check RStudio cheat sheets.
-<br><br><br><br>
-
-<div class="tryit">
-* Look at the help page for the `which` function.
-* What does the function do?
-* How do you use it?
-</div>
-
-<div class="hint">
-A lot of useful information is available online. Take a look at
-[rseek.org](http://rseek.org/).
-</div>
-
-## Getting help {.columns-2}
-```{r, out.height="265px"}
-knitr::include_graphics("figures/cheatsheets.png")
-```
-
-* Use RStudio's help browser.
-* Use the `?` command.
-* <span class='red'>Check RStudio cheat sheets.</span>
-<br><br><br><br>
-
-<div class="tryit">
-* Look at the help page for the `which` function.
-* What does the function do?
-* How do you use it?
-</div>
-
-<div class="hint">
-A lot of useful information is available online. Take a look at
-[rseek.org](http://rseek.org/).
-</div>
-
-## Binders full of functions {.columns-2}
-```{r, out.width="500px"}
-knitr::include_graphics("figures/install_packages.png")
-```
-
-* R comes with a lot of useful functions build in.
-* Additional functions are available through *packages*.
-* Large collection available through public repositories
-
-<div class='hint'>
-```r
-library(package_name)
-```
-</div>
-
-# Working with data
 ## Working with variables {.columns-2}
 We can manipulate variables in multiple ways
 
@@ -291,9 +220,26 @@ small <- x[small_idx]
 </div>
 <div class="tryit">
 * What happens if an operator is applied to a vector?
+* What does `which` do?
 </div>
 
+## Getting help {.columns-2}
+```{r, out.width="500px"}
+knitr::include_graphics("figures/help_browser.png")
+```
 
+* Use RStudio's help browser.
+* Use the `?` command.
+
+<div class="tryit">
+Look at the help page for the `which` function.
+</div>
+
+<div class="hint">
+A lot of useful information is available online.
+</div>
+
+# Working with data
 ## Importing data
 ```{r, out.width="800px"}
 knitr::include_graphics("figures/import_data.png")
@@ -325,7 +271,7 @@ It depends on the question we want to ask of the data!
 
 * Each colum could be considered a different level of the same variable.
 * Or a different variable.
-* Note that column with subject ID is missing.
+* Note that column with supject ID is missing.
 
 
 ## Using the `tidyr` package
@@ -375,6 +321,7 @@ probly_long <- gather(probly, `Almost Certainly`:`Chances Are Slight`,
 
 </div>
 
+# Visualising data
 ## Plotting with `ggplot2`
 
 * A plot only really needs three things
@@ -398,7 +345,6 @@ probly_long <- gather(probly, `Almost Certainly`:`Chances Are Slight`,
 Create a simple box plot of the data.
 </div>
 <div class="hint">
-
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 library(ggplot2)
 ```
@@ -409,7 +355,6 @@ Use `geom_boxplot`
 
 ## Plotting data
 <div class="centered">
-
 ```{r, echo=TRUE, out.width="400px"}
 ggplot(probly_long) + geom_boxplot(aes(x=phrase, y=probability))
 ```
@@ -461,11 +406,15 @@ library(forcats)
 
 ## Ordered plot
 
-```{r, echo=TRUE, out.width="400px", out.height="400px"}
-probly_long <- mutate(probly_long, phrase=fct_reorder(phrase, probability))
-ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
+```{r box_order, echo=TRUE, eval=FALSE}
+ggplot(probly_long) + geom_boxplot(aes(x=fct_reorder(phrase, probability), 
                                        y=probability)) + coord_flip()
 ```
+
+<div class="centered">
+```{r box_order, echo=FALSE, eval=TRUE, out.width="450px", out.height="450px"}
+```
+</div>
 
 ## Final tweaks
 
@@ -480,10 +429,10 @@ Search the help system for a way to change the axis label.
 
 <div class="build">
 <div class="hint">
-The `xlab` and `ylab `function will set the axis labels. Remember that we flipped the coordinate system.
+The `xlab` and `ylab` function will set the axis labels. Remember that we flipped the coordinate system.
 
 ```{r, echo=TRUE, eval=FALSE}
-ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
+ggplot(probly_long) + geom_boxplot(aes(x=fct_reorder(phrase, probability), 
                                        y=probability)) +
 ### <b>
   xlab("phrase") + coord_flip()
@@ -515,7 +464,7 @@ probly_long <- mutate(probly_long, avg=median(probability))
 
 ## Coloured plot
 ```{r boxplot_colour, echo=TRUE, eval=FALSE}
-ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
+ggplot(probly_long) + geom_boxplot(aes(x=fct_reorder(phrase, probability), 
                                        y=probability,
 ## <b>
                                        fill=avg)) + 
@@ -547,7 +496,7 @@ ggplot(probly_long) + geom_boxplot(aes(x=phrase,
 ## Final plot
 
 ```{r boxplot_final, echo=TRUE, eval=FALSE}
-ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
+ggplot(probly_long) + geom_boxplot(aes(x=fct_reorder(phrase, probability), 
                                        y=probability, fill=avg)) + 
   xlab("phrase") + coord_flip() +
 ### <b>
@@ -559,199 +508,3 @@ ggplot(probly_long) + geom_boxplot(aes(x=phrase,
 
 ```{r boxplot_final, echo=FALSE, eval=TRUE, out.width="500px", out.height="500px"}
 ```
-
-# Data cleaning
-## Cleaning messy data {.columns-2}
-```{r, out.width="500px"}
-knitr::include_graphics("figures/box_marked.png")
-```
-
-* Data are often messy
-
-<div class='discuss'>
-* Do unexpected outliers contain valuable information or are they just noise?
-
-> * What could we do to investigate?
-</div>
-
-## Plotting individual level data
-<div class='tryit'>
-It may be helpful to inspect individual responses. Create a plot that facilitates
-comparison between individual and average responses for each phrase.
-</div>
-
-
-## A possible solution {.centered}
-```{r lines_final, fig.height=5, fig.width=7}
-library(ggrepel)
-phrase_count <- length(levels(probly_long$phrase))
-probly_long <- mutate(probly_long, unexpected=sign(probability - 50) != sign(avg -50) &
-                        probability != 50 & avg != 50)
-ggplot(probly_long, aes(x=as.numeric(phrase),
-                        y=probability)) + 
-  geom_line(aes(colour=factor(subject))) +
-  geom_point(aes(colour=factor(subject), shape=unexpected, size=unexpected)) +
-  geom_smooth(method="loess", colour='black') +
-  geom_text_repel(data=filter(probly_long, unexpected), 
-                  aes(x=as.numeric(phrase), 
-                      y=probability,
-                      label=subject)) +
-  scale_x_continuous(breaks=1:phrase_count, 
-                     labels=levels(probly_long$phrase),
-                     minor_breaks = NULL,
-                     expand = c(0, 0.4)) +
-  scale_size_manual(values=c(0, 2)) +
-  scale_shape_manual(values=c(0, 16)) + 
-  guides(colour='none', shape='none', size='none') + xlab("") +
-  theme(axis.text.x=element_text(angle=45,hjust=1))
-```
-
-## A possible solution {.smaller}
-```{r lines_final, echo=TRUE, eval=FALSE}
-```
-
-## Removing unreliable measurements
-
-* Be careful about removing outliers
-* Outliers *may* be due to corrupted measurements 
-* but may also represent higher than expected variability
-  in the data
-* **Only** remove outliers if there is solid evidence that
-  these measurements are unreliable
-  
-<div class="tryit build">
-* Remove subject 15 from the dataset.
-* Create plots for the cleaned data.
-</div>
-
-
-## Cleaned data
-
-```{r, echo=TRUE}
-probly_clean <- filter(probly_long, subject != 15)
-```
-
-<div class="build">
-<div class="columns-2">
-```{r, out.width="400px", out.height="400px"}
-ggplot(probly_clean) + geom_boxplot(aes(x=phrase, 
-                                       y=probability, fill=avg)) + 
-  xlab("phrase") + coord_flip() +
-  scale_fill_gradient2(midpoint=50)
-```
-
-```{r, out.width="400px", out.height="400px"}
-ggplot(probly_clean, aes(x=as.numeric(phrase),
-                        y=probability)) + 
-  geom_line(aes(colour=factor(subject))) +
-  geom_point(aes(colour=factor(subject), shape=unexpected, size=unexpected)) +
-  geom_smooth(method="loess", colour='black') +
-  geom_text_repel(data=filter(probly_clean, unexpected), 
-                  aes(x=as.numeric(phrase), 
-                      y=probability,
-                      label=subject)) +
-  scale_x_continuous(breaks=1:phrase_count, 
-                     labels=levels(probly_long$phrase),
-                     minor_breaks = NULL,
-                     expand = c(0, 0.4)) +
-  scale_size_manual(values=c(0, 2)) +
-  scale_shape_manual(values=c(0, 16)) + 
-  guides(colour='none', shape='none', size='none') + xlab("") +
-  theme(axis.text.x=element_text(angle=45,hjust=1))
-```
-
-</div>
-</div>
-
-# Summarising data
-## Getting the numbers
-
-* Plots are very useful but sometimes we need actual numbers.
-* Simple summaries can easily be obtained *via* `dplyr::summarise`
-
-```{r, echo=TRUE}
- prob_summary <- summarise(probly_clean, mean=mean(probability))
-```
-```{r, results='asis'}
-prob_summary$mean <- round(prob_summary$mean, 2)
-datatable(prob_summary, options=list(pageLength=6), class="display compact")
-```
-
-## More numbers
-
-<div class="tryit">
-* Compute additional summary statistics.
-* You could try *median*, *trimmed mean*, *standard deviation*, *inter quartile range*, 
-  *median absolute deviation*
-</div>
-
-<div class="hint">
-`summarise` can produce multiple summaries at once.
-</div>
-
-## More numbers
-```{r, echo=TRUE}
-prob_summary <- summarise(probly_clean, mean=mean(probability), 
-                          sd=sd(probability), 
-                          'trimmed mean'=mean(probability, trim = 0.1),
-                          median=median(probability), IQR=IQR(probability), 
-                          MAD=mad(probability))
-```
-```{r}
-prob_summary <- transmute(prob_summary, phrase=phrase,
-                          mean=round(mean, 2), sd=round(sd, 2), 
-                          'trimmed mean'=round(`trimmed mean`, 2),
-                          median=median, IQR=IQR, MAD=round(MAD, 2))
-datatable(prob_summary, options=list(pageLength=6), class="display compact")
-```
-
-## Is an event with *better than even* odds *likely*?
-
-* We can use these data to determine whether the perception of
-  two phrases differs significantly.
-
-<div class='tryit'>
-Investigate the difference between *Better Than Even* and *Likely*.
-</div>
-
-<div class="build">
-<div class="hint">
-Use data in *wide* format (one column for each phrase).
-</div>
-<div class="hint">
-A *paired t-test* should be useful here.
-</div>
-</div>
-
-## Is an event with *better than even* odds *likely*?
-
-```{r, echo=TRUE}
-t.test(probly$Likely[-15], probly$`Better Than Even`[-15], paired=TRUE)
-```
-
-# The Road Ahead
-## Further adventures in R
-
-* Continue to practice using R
-* Explore your own data
-* Learn aboutyour favourite analysis techniques in R
-
-* CRAN maintains lists of useful and recommended packages by topic
-    * [Social Sciences](https://cran.r-project.org/web/views/SocialSciences.html)
-    * [Psychometrics](https://cran.r-project.org/web/views/Psychometrics.html)
-    * [Official Statistics](https://cran.r-project.org/web/views/OfficialStatistics.html)
-      (including survey methodology)
-    * [Bayesian Inference](https://cran.r-project.org/web/views/Bayesian.html)
-
-
-## Useful packages
-
-* Power analysis: 
-    * [`pwr`](https://cran.r-project.org/package=pwr)
-    * [`simr`](https://cran.r-project.org/package=simr)
-* Linear (mixed) models: [`lme4`](https://cran.r-project.org/package=lme4)
-* Non-linear regression: [`nlme`](https://cran.r-project.org/package=nlme)
-* Eyetracking: [`eyetrackingR`](http://www.eyetracking-r.com/)
-* Factor analysis/SEM: [`lavaan`](http://lavaan.ugent.be/)
-* Bayesian hypothesis testing: [`BayesFactor`](http://bayesfactorpcl.r-forge.r-project.org/)
-
