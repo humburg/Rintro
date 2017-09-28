@@ -771,3 +771,12 @@ t.test(probly$Likely[-15], probly$`Better Than Even`[-15], paired=TRUE)
 * Factor analysis/SEM: [`lavaan`](http://lavaan.ugent.be/)
 * Bayesian hypothesis testing: [`BayesFactor`](http://bayesfactorpcl.r-forge.r-project.org/)
 
+## This presentation
+
+These slides are available at [https://humburg.github.io/Rintro/](https://humburg.github.io/Rintro/)
+
+<div class="centered">
+```{r, out.width = "300px"}
+knitr::include_graphics("figures/slides_qr.jpg")
+```
+</div>
