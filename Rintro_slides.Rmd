@@ -748,6 +748,7 @@ t.test(probly$Likely[-15], probly$`Better Than Even`[-15], paired=TRUE)
 
 * Power analysis: 
     * [`pwr`](https://cran.r-project.org/package=pwr)
+    * [`skpr`](https://cran.r-project.org/package=skpr)
     * [`simr`](https://cran.r-project.org/package=simr)
 * Linear (mixed) models: [`lme4`](https://cran.r-project.org/package=lme4)
 * Non-linear regression: [`nlme`](https://cran.r-project.org/package=nlme)
