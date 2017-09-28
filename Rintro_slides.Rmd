@@ -33,6 +33,13 @@ author <- rmarkdown::metadata$author
     })
 </script>
 
+# Setup
+## What you'll need
+
+* R and RStudio instlled on your laptop
+* The `tidyverse` R package
+* The *Perceptions of Uncertainty* dataset from [https://github.com/zonination/perceptions/blob/master/probly.csv](https://github.com/zonination/perceptions/blob/master/probly.csv)
+
 # Getting started
 ## RStudio
 ```{r, out.width = "800px"}
