@@ -308,6 +308,14 @@ knitr::include_graphics("figures/import_window.png")
 probly <- read_csv("C:/Users/MQ41055780/OneDrive - Macquarie University/Workshops/Rintro/data/probly.csv")
 ```
 
+## The dataset
+
+* Perception of uncertainty
+    * *What probability would you assign to the phrase "[phrase]"*
+* Collected by */u/zonination* on reddit
+* Inspired by [Sherman Kent](https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/art15.html) study
+* Available on [GitHub](https://github.com/zonination/perceptions)
+
 ## Tidying data
 *Tidy* data should have
 
