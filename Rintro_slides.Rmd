@@ -36,9 +36,10 @@ author <- rmarkdown::metadata$author
 # Setup
 ## What you'll need
 
-* R and RStudio instlled on your laptop
+* R and RStudio installed on your laptop
 * The `tidyverse` R package
-* The *Perceptions of Uncertainty* dataset from [https://github.com/zonination/perceptions/blob/master/probly.csv](https://github.com/zonination/perceptions/blob/master/probly.csv)
+* The *Perceptions of Uncertainty* dataset from [https://tinyurl.com/probly-data](https://tinyurl.com/probly-data)
+  (right click page and **Save as** *probly.csv*)
 
 # Getting started
 ## RStudio
@@ -50,6 +51,20 @@ knitr::include_graphics("figures/RStudio_startup.png")
 ```{r, out.width="800px"}
 knitr::include_graphics("figures/RStudio_startup_labelled.png")
 ```
+
+## Projects
+
+Create a new project to keep files organised
+
+<div class="columns-2">
+```{r, out.width="600px"}
+knitr::include_graphics("figures/create_project-1.png")
+```
+
+```{r, out.width="600px"}
+knitr::include_graphics("figures/create_project-2.png")
+```
+</div>
 
 <div class="notes">
 * Could start working now by typing R commands, but better to keep a record of
@@ -80,6 +95,17 @@ Create a new notebook in RStudio.
 <div class="tryit">
 Type some text into the notebook and experiment with formatting.
 </div>
+
+<div class="hint">
+You can use the notebook to keep notes for this course.
+</div>
+
+## Learning more about Markdown {.centered}
+
+```{r, out.width="600px"}
+knitr::include_graphics("figures/markdown_help.png")
+```
+
 
 ## Preview results
 ```{r, out.width="400px"}
@@ -124,7 +150,6 @@ ans <- 42
 Add a variable assignment to your code chunk.
 </div>
 
-
 ## Executing R code {.columns-2}
 
 ```{r, out.width="400px"}
@@ -141,6 +166,18 @@ Execute entire code block:
 * <i class="fa fa-windows" aria-hidden="true"></i> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>
 * <i class="fa fa-apple" aria-hidden="true"></i> <kbd>&#x2318;</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>
 
+## Chunk options
+
+<div class="centered">
+```{r, out.width="600px"}
+knitr::include_graphics("figures/chunk_options.png")
+```
+</div>
+
+* Behaviour of R chunks can be modified through options.
+* Access via settings icon or type directly into chunk header.
+* Can name chunks to make locating them later easier.
+
 ## Examining values {.columns-2}
 ```{r, out.width="600px"}
 knitr::include_graphics("figures/environment.png")
@@ -156,7 +193,7 @@ knitr::include_graphics("figures/environment.png")
 ## Basic building blocks -- Vectors
 * Data is stored in vectors
 * Each vector has a *type*
-    * *numeric* for intervall and ratio data
+    * *numeric* for interval and ratio data
     * *logical* for binary data/truth values
     * *character* or *factor* for categorical data
     * ...
@@ -169,7 +206,11 @@ letters
 factor(letters)
 ```
 </div>
-    
+
+<div class="notes">
+No need to worry too much about what all this means. Just try it and see what happens.
+</div>
+
 ## Basic building blocks -- Vectors
 * Vectors can have multiple dimensions.
 
@@ -181,6 +222,7 @@ mat[2, 3]
 ```
 </div>
 
+## Basic building blocks -- Vectors
 * Different types of vectors can be combined into *lists*.
 * Vectors of the same length can be combined into *data frames*.
 
@@ -191,7 +233,12 @@ lst[[2]][3]
 lst$letter[3]
 df <- data.frame(position=1:26, letter=letters)
 df[3, 2]
+df[-(1:10),]
 ```
+</div>
+
+<div class="notes">
+Note the `$` subsetting and how negative subscripts work.
 </div>
 
 ## Basic building blocks -- Functions
@@ -220,7 +267,7 @@ knitr::include_graphics("figures/help_browser.png")
 ```
 
 * <span class='red'>Use RStudio's help browser.</span>
-* Use the `?` command.
+* Use the `?` command (`?which`). 
 * Check RStudio cheat sheets.
 <br><br><br><br>
 
@@ -241,7 +288,7 @@ knitr::include_graphics("figures/cheatsheets.png")
 ```
 
 * Use RStudio's help browser.
-* Use the `?` command.
+* Use the `?` command (`?which`).
 * <span class='red'>Check RStudio cheat sheets.</span>
 <br><br><br><br>
 
@@ -267,7 +314,10 @@ knitr::include_graphics("figures/install_packages.png")
 
 <div class='hint'>
 ```r
+package_name::function_name()
+
 library(package_name)
+function_name()
 ```
 </div>
 
@@ -370,7 +420,7 @@ spread(table2, type, count)
 ## Reshaping data {.build}
 
 <div class="tryit">
-Tidy up the *probly* dataset by gathering all reported probabilities into a single column.
+Tidy up the *probly* dataset by gathering all reported probabilities into a single column. Don't forget to load the `tidyverse` package.
 </div>
 
 <div class="hint">
@@ -482,6 +532,11 @@ ggplot(probly_long) + geom_boxplot(aes(x=phrase,
                                        y=probability)) + coord_flip()
 ```
 
+<div class="notes">
+Note that, by default, `fct_reorder` reorders factor levels by the median value of the second variable.
+If there is time, ask participants to figure this out themselves.
+</div>
+
 ## Final tweaks
 
 <div class="tryit">
@@ -495,7 +550,7 @@ Search the help system for a way to change the axis label.
 
 <div class="build">
 <div class="hint">
-The `xlab` and `ylab `function will set the axis labels. Remember that we flipped the coordinate system.
+The `xlab` and `ylab` function will set the axis labels. Remember that we flipped the coordinate system.
 
 ```{r, echo=TRUE, eval=FALSE}
 ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
@@ -527,6 +582,8 @@ probly_long <- mutate(probly_long, avg=median(probability))
 ```
 </div>
 </div>
+
+
 
 ## Coloured plot
 ```{r boxplot_colour, echo=TRUE, eval=FALSE}
