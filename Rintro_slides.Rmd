@@ -41,6 +41,14 @@ author <- rmarkdown::metadata$author
 * The *Perceptions of Uncertainty* dataset from [https://tinyurl.com/probly-data](https://tinyurl.com/probly-data)
   (right click page and **Save as** *probly.csv*)
 
+## Overview
+
+* Introduction to R and RStudio
+* Importing data
+* Processing data
+* Plotting data
+* Summarising data
+
 # Getting started
 ## RStudio
 ```{r, out.width = "800px"}
