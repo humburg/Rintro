@@ -185,9 +185,9 @@ knitr::include_graphics("figures/environment.png")
 
 * View values in the *Environment* window.
 * Use the data viewer
-    - Try `View(ans)`
+    * Try `View(ans)`
 * `print` values
-    - Try `print(ans)`
+    * Try `print(ans)`
 * Highlight variable name in notebook + <kbd>Ctrl</kbd>+<kbd>Enter</kbd>
 
 ## Basic building blocks -- Vectors
