@@ -560,7 +560,7 @@ The `xlab` and `ylab` function will set the axis labels. Remember that we flippe
 ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
                                        y=probability)) +
 ### <b>
-  xlab("phrase") + coord_flip()
+  xlab("") + coord_flip()
 ### </b>
 ```
 </div>
@@ -596,7 +596,7 @@ ggplot(probly_long) + geom_boxplot(aes(x=phrase,
 ## <b>
                                        fill=avg)) + 
 ## </b>
-  xlab("phrase") + coord_flip()
+  xlab("") + coord_flip()
 
 ```
 
@@ -625,7 +625,7 @@ ggplot(probly_long) + geom_boxplot(aes(x=phrase,
 ```{r boxplot_final, echo=TRUE, eval=FALSE}
 ggplot(probly_long) + geom_boxplot(aes(x=phrase, 
                                        y=probability, fill=avg)) + 
-  xlab("phrase") + coord_flip() +
+  xlab("") + coord_flip() +
 ### <b>
   scale_fill_gradient2(midpoint=50)
 ### </b>
@@ -712,7 +712,7 @@ probly_clean <- filter(probly_long, subject != 15)
 ```{r, out.width="400px", out.height="400px"}
 ggplot(probly_clean) + geom_boxplot(aes(x=phrase, 
                                        y=probability, fill=avg)) + 
-  xlab("phrase") + coord_flip() +
+  xlab("") + coord_flip() +
   scale_fill_gradient2(midpoint=50)
 ```
 
